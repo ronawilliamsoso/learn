@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -27,10 +28,10 @@ import lombok.ToString;
 public class Player {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	Integer id;
 
-	@Column(length = 30)
+	@Column(length = 30, nullable = false)
 	private String name;
 
 	@Column(length = 3)
@@ -45,6 +46,7 @@ public class Player {
 	@Column(length = 3)
 	private Integer weight;
 
+	@Column(columnDefinition = "DECIMAL(6,2) DEFAULT 0.00")
 	private BigDecimal age;
 
 }
