@@ -29,7 +29,7 @@ public class HttpPostJson {
 
 		StringBuilder json = new StringBuilder();
 		json.append("{");
-		json.append("\"name\":\"mkyong\",");
+		json.append("\"name\":\"wei\",");
 		json.append("\"notes\":\"hello\"");
 		json.append("}");
 

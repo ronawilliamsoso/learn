@@ -1,14 +1,14 @@
 package com.example.demo.utils;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 
-import org.apache.http.HttpEntity;
 import org.apache.http.HttpHeaders;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
-import org.apache.http.util.EntityUtils;
 
 public class HttpGetExample {
 
@@ -21,26 +21,19 @@ public class HttpGetExample {
 			HttpGet request = new HttpGet("https://httpbin.org/get");
 
 			// add request headers
-			request.addHeader("custom-key", "mkyong");
+			request.addHeader("custom-key", "wei");
 			request.addHeader(HttpHeaders.USER_AGENT, "Googlebot");
+			request.addHeader("accept", "application/json");
 
 			CloseableHttpResponse response = httpClient.execute(request);
 
 			try {
+				BufferedReader br = new BufferedReader(new InputStreamReader((response.getEntity().getContent())));
 
-				// Get HttpResponse Status
-				System.out.println(response.getProtocolVersion()); // HTTP/1.1
-				System.out.println(response.getStatusLine().getStatusCode()); // 200
-				System.out.println(response.getStatusLine().getReasonPhrase()); // OK
-				System.out.println(response.getStatusLine().toString()); // HTTP/1.1
-																			// 200
-																			// OK
-
-				HttpEntity entity = response.getEntity();
-				if (entity != null) {
-					// return it as a String
-					String result = EntityUtils.toString(entity);
-					System.out.println(result);
+				String output;
+				System.out.println("Output from Server .... \n");
+				while ((output = br.readLine()) != null) {
+					System.out.println(output);
 				}
 
 			} finally {
