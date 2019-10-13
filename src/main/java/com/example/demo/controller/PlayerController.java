@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.model.Player;
 import com.example.demo.repository.PlayerRepository;
 
+import io.swagger.annotations.ApiOperation;
+
 @RestController
 @RequestMapping("/player")
 public class PlayerController {
@@ -19,14 +21,17 @@ public class PlayerController {
 	@Autowired
 	private PlayerRepository playerRepository;
 
+	@ApiOperation(value = "find by id")
 	@RequestMapping(value = "/findById", method = RequestMethod.GET)
 	public Object findById(Integer Id) {
 		Map<String, Object> map = new HashMap<String, Object>();
 
 		Optional<Player> optional = playerRepository.findById(Id);
+
 		if (optional.isPresent()) {
+			Player player = optional.get();
 			map.put("status", 200);
-			map.put("player", optional.get());
+			map.put("player", player.getName());
 
 		} else {
 			map.put("status", 201);
