@@ -27,18 +27,14 @@ public class HttpGetExample {
 
 			CloseableHttpResponse response = httpClient.execute(request);
 
-			try {
-				BufferedReader br = new BufferedReader(new InputStreamReader((response.getEntity().getContent())));
+			BufferedReader br = new BufferedReader(new InputStreamReader((response.getEntity().getContent())));
 
-				String output;
-				System.out.println("Output from Server .... \n");
-				while ((output = br.readLine()) != null) {
-					System.out.println(output);
-				}
-
-			} finally {
-				response.close();
+			String output;
+			System.out.println("Output from Server .... \n");
+			while ((output = br.readLine()) != null) {
+				System.out.println(output);
 			}
+
 		} finally {
 			httpClient.close();
 		}
