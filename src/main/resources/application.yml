@@ -12,4 +12,14 @@ spring:
     host: 127.0.0.1
     port: 6379
     password:
+  data:
+    mongodb:
+      host: 127.0.0.1
+      port: 27017
+      database: test
+      # 1.use test  2.db.createUser( { user: "mongodb", pwd: "123456", roles: [ { role: "dbOwner", db: "db_name" } ]} )
+      username: demo
+      password: Mongo123456
+
+
 
