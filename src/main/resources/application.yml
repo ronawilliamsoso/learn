@@ -8,4 +8,8 @@ spring:
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     hibernate:
       ddl-auto: update
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    password:
 
