@@ -1,33 +1,26 @@
 package com.example.demo.model;
 
 import java.math.BigDecimal;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
+import lombok.Builder;
+import lombok.Data;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
-
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
 
 
 
 
 @Entity
-@Getter
-@Setter
 @Table(name = "player")
-@ToString
-@EqualsAndHashCode
+@Data
 @DynamicInsert
 @DynamicUpdate
+@Builder
 public class Player {
 
 	@Id
