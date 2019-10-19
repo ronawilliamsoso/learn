@@ -3,6 +3,7 @@ package com.example.demo.model;
 import java.math.BigDecimal;
 import java.util.Date;
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -17,6 +18,7 @@ import org.hibernate.annotations.DynamicUpdate;
 @Table(name = "customer")
 @DynamicInsert
 @DynamicUpdate
+@Entity
 public class Customer {
 	
 	@Id
