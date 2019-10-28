@@ -1,7 +1,9 @@
 package com.example.demo.service;
 
 import com.example.demo.model.MUser;
+import com.example.demo.repository.MUserAddressRepository;
 import com.example.demo.repository.MUserRepository;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,14 +13,17 @@ public class MUserService{
   @Autowired
   public MUserRepository mDataRepository;
 
+  @Autowired
+  MUserAddressRepository mUserAddressRepository;
+
   public MUser register(MUser mData) throws Exception{
 
-    if(mData.getId()==0){
+    if(mData.getId() == 0){
       throw new Exception("no admin should be added");
     }
 
     if(!mData.getName().isEmpty() && !mDataRepository.existsById(mData.getId())){
-      return  mDataRepository.save(mData);
+      return mDataRepository.save(mData);
     }
     else{
       throw new Exception("姓名为空或者存在");
@@ -27,15 +32,19 @@ public class MUserService{
   }
 
 
-
-
-
-
-
   public void register_normal(MUser mData){
 
     if(!mData.getName().isEmpty() && !mDataRepository.existsById(mData.getId())){
       mDataRepository.save(mData);
+    }
+  }
+
+  public MUser register_normal_with_return(MUser mData){
+
+    if(!mData.getName().isEmpty() && !mDataRepository.existsById(mData.getId())){
+     return mDataRepository.save(mData);
+    }else {
+      return null;
     }
   }
 
@@ -50,12 +59,16 @@ public class MUserService{
     }
   }
 
-  public MUser findOneUser(Integer userId){
+  public MUser findAndEnrichOneUser(Integer userId){
     if(!mDataRepository.existsById(userId)){
       return null;
     }
     else{
-      return mDataRepository.getOne(userId);
+
+      Optional<String> cityOptional =  mUserAddressRepository.forCity(userId);
+      MUser mUser =  mDataRepository.getOne(userId);
+      mUser.setCity(cityOptional.get());
+      return mUser;
     }
   }
 
