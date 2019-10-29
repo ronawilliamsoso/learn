@@ -47,6 +47,12 @@ public class BDDMockitoMUserTests{
 
   }
 
+  @Test
+  @DisplayName("vertify void methods")
+  public void vertifyTest() throws Exception{
+    mockedList.add("one");
+    verify(mockedList,times(1)).add("one");//激活上一个动作
+  }
 
   @Test
   @DisplayName("spy 是真执行，mock 是假执行")
