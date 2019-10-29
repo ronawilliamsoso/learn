@@ -168,7 +168,7 @@ public class BDDMockito{
     // or then
     // SoftAssertions 当一个 testfail 之后，希望继续执行后面的 test，以便于一次提示所有的 fail，而不用每次 fail 就终止，并不知道后面的 test 的情况
     SoftAssertions.assertSoftly(softly -> {
-      softly.assertThat(actuallMUser.getId()).as("已经存进数据库的用户 id 不可能为空").isNotNull();
+      softly.assertThat(actuallMUser.getId()).as("已经存进数据库的用户 id 不可能为空").isNotNull();// as 后面的描述是为了在错误发生的时候进行提示
       softly.assertThat(actuallMUser).isEqualToIgnoringGivenFields(inputMUser,"id");
     });
   }
