@@ -18,6 +18,7 @@ import com.example.demo.repository.MUserAddressRepository;
 import com.example.demo.repository.MUserRepository;
 import com.example.demo.service.MUserService;
 import java.util.concurrent.ThreadLocalRandom;
+import org.assertj.core.api.SoftAssertions;
 import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.runner.RunWith;
@@ -26,6 +27,7 @@ import org.mockito.Mock;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.mockito.stubbing.Answer;
+
 
 @RunWith(MockitoJUnitRunner.class)
 public class BDDMockito{
@@ -155,10 +157,20 @@ public class BDDMockito{
     //when
     MUser actuallMUser = mUserService.register_normal_with_return(inputMUser);
 
+
+
     //then
     assertNotNull(actuallMUser.getId() );
     assertEquals(inputMUser.getName(), actuallMUser.getName() );
     assertEquals(inputMUser.getCity(), actuallMUser.getCity() );
+
+
+    // or then
+    // SoftAssertions 当一个 testfail 之后，希望继续执行后面的 test，以便于一次提示所有的 fail，而不用每次 fail 就终止，并不知道后面的 test 的情况
+    SoftAssertions.assertSoftly(softly -> {
+      softly.assertThat(actuallMUser.getId()).as("已经存进数据库的用户 id 不可能为空").isNotNull();
+      softly.assertThat(actuallMUser).isEqualToIgnoringGivenFields(inputMUser,"id");
+    });
   }
 
   private Integer randomInteger() {
