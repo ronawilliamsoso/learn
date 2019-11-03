@@ -9,11 +9,11 @@
 		<version>2.1.9.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.example.demo</groupId>
-	<artifactId>demo</artifactId>
+	<groupId>com.example.learn</groupId>
+	<artifactId>learn</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>demo</name>
-	<description>Demo project for Spring Boot</description>
+	<name>learn</name>
+	<description>learn project</description>
 
 	<properties>
 		<java.version>9</java.version>
