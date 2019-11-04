@@ -1,4 +1,4 @@
-package com.example.learn.muitiThread.AbstractQueuedSynchronized.reentrantlock;
+package com.example.learn.muitiThread.AbstractQueuedSynchronized.exclusiveLock_reentrantlock;
 
 import java.util.concurrent.locks.ReentrantLock;
 
