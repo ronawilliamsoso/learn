@@ -4,7 +4,7 @@ import java.util.concurrent.CountDownLatch;
 import lombok.SneakyThrows;
 
 /**
- * 主线程等待子线程执行完成再执行
+ * 主线程等待子线程执行完成再执行, countDownLatch是一次性使用的。与 CyclicBarrier 的区别是，等待结束后执行任务的只有主线程。
  */
 public class CountDownLatchExample{
 
