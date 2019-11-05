@@ -1,4 +1,4 @@
-package com.example.learn.muitiThread.AbstractQueuedSynchronized.Atomic;
+package com.example.learn.muitiThread.AbstractQueuedSynchronized.atomic;
 
 import java.util.concurrent.atomic.AtomicIntegerArray;
 import lombok.SneakyThrows;
