@@ -3,7 +3,7 @@ package com.example.learn.muitiThread.AbstractQueuedSynchronized.exclusiveLock_r
 import java.util.concurrent.locks.ReentrantLock;
 
 ///////////////////////////////////////////////////////////////////////////
-// ReentrantLock 是独占锁
+// ReentrantLock 是独占锁 可重入锁 这个例子就是重复加锁两次，然后两次开锁
 ///////////////////////////////////////////////////////////////////////////
 
 public class RepeatLock{
