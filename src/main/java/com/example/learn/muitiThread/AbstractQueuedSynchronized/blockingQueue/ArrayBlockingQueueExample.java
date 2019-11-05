@@ -6,15 +6,16 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
 import lombok.SneakyThrows;
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.log4j.Log4j2;
 
 // 阻塞队列的意思是，当放入的东西数量超过容量，"放"这个动作被阻塞，"拿"这个动作被激活，队列为空的时候，"拿"被阻塞，"放"被激活
 
 // 本例中，假如ArrayBlockingQueue是一个可以放入两个球的盒子，放球的动作每秒一次，拿球的动作每5秒一次，结果就是，一开始可以放入两个球，
 // 超过两个之后，后面放球的动作一直被拿球的动作阻塞，无法持续的放入超过两个球。
+// 因为是队列，所以先放入的球先被拿走
 
 
-@Slf4j
+@Log4j2
 public class ArrayBlockingQueueExample{
 
   private static ArrayBlockingQueue<Ball> box = new ArrayBlockingQueue<>(2,true );
