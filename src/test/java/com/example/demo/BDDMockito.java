@@ -120,15 +120,6 @@ public class BDDMockito{
 
   }
 
-  @Test
-  @DisplayName("加入 assert")
-  public void bddmockito_plus_assert(){
-
-    Integer tempId = anyInt();
-    given(mUserRepository.existsById(tempId)).willReturn(false);
-    MUser mData =  mUserService.findAndEnrichOneUser(tempId);
-    assertEquals(null, mData);
-  }
 
 
   @Test

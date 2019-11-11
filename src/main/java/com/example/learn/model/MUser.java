@@ -1,13 +1,17 @@
 package com.example.learn.model;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NonNull;
 
 @Data
 @Builder
+@Entity
+@Table(name = "m_user")
 public class MUser{
 
   @Id

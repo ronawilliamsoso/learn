@@ -2,7 +2,7 @@ spring:
   datasource:
     url: jdbc:mysql://localhost:3306/demo?useLegacyDatetimeCode=false&serverTimezone=UTC&allowLoadLocalInfile=true
     username: root
-    password: Wisler843732
+    password: 123456
     platform: mysql
   jpa:
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect

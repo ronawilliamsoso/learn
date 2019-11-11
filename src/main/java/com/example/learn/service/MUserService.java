@@ -3,7 +3,6 @@ package com.example.learn.service;
 import com.example.learn.model.MUser;
 import com.example.learn.repository.MUserAddressRepository;
 import com.example.learn.repository.MUserRepository;
-import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,19 +10,19 @@ import org.springframework.stereotype.Service;
 public class MUserService{
 
   @Autowired
-  public MUserRepository mDataRepository;
+  public MUserRepository mUserRepository;
 
   @Autowired
   MUserAddressRepository mUserAddressRepository;
 
-  public MUser register(MUser mData) throws Exception{
+  public MUser register(MUser mUser) throws Exception{
 
-    if(mData.getId() == 0){
+    if(mUser.getId() == 0){
       throw new Exception("no admin should be added");
     }
 
-    if(!mData.getName().isEmpty() && !mDataRepository.existsById(mData.getId())){
-      return mDataRepository.save(mData);
+    if(!mUser.getName().isEmpty() && !mUserRepository.existsById(mUser.getId())){
+      return mUserRepository.save(mUser);
     }
     else{
       throw new Exception("姓名为空或者存在");
@@ -34,15 +33,15 @@ public class MUserService{
 
   public void register_normal(MUser mData){
 
-    if(!mData.getName().isEmpty() && !mDataRepository.existsById(mData.getId())){
-      mDataRepository.save(mData);
+    if(!mData.getName().isEmpty() && !mUserRepository.existsById(mData.getId())){
+      mUserRepository.save(mData);
     }
   }
 
   public MUser register_normal_with_return(MUser mData){
 
-    if(!mData.getName().isEmpty() && !mDataRepository.existsById(mData.getId())){
-     return mDataRepository.save(mData);
+    if(!mData.getName().isEmpty() && !mUserRepository.existsById(mData.getId())){
+     return mUserRepository.save(mData);
     }else {
       return null;
     }
@@ -50,26 +49,26 @@ public class MUserService{
 
 
   public void saveOrUpdate(MUser mData){
-    if(!mDataRepository.existsById(mData.getId())){
-      mDataRepository.save(mData);
+    if(!mUserRepository.existsById(mData.getId())){
+      mUserRepository.save(mData);
     }
     else{
-      mDataRepository.deleteById(mData.getId());
-      mDataRepository.save(mData);
+      mUserRepository.deleteById(mData.getId());
+      mUserRepository.save(mData);
     }
   }
 
-  public MUser findAndEnrichOneUser(Integer userId){
-    if(!mDataRepository.existsById(userId)){
-      return null;
-    }
-    else{
-
-      Optional<String> cityOptional =  mUserAddressRepository.forCity(userId);
-      MUser mUser =  mDataRepository.getOne(userId);
-      mUser.setCity(cityOptional.get());
-      return mUser;
-    }
-  }
+//  public MUser findAndEnrichOneUser(Integer userId){
+//    if(!mUserRepository.existsById(userId)){
+//      return null;
+//    }
+//    else{
+//
+//      Optional<String> cityOptional =  mUserAddressRepository.forCity(userId);
+//      MUser mUser =  mUserRepository.getOne(userId);
+//      mUser.setCity(cityOptional.get());
+//      return mUser;
+//    }
+//  }
 
 }
