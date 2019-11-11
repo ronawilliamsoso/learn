@@ -81,6 +81,7 @@ public class ZkClientTest{
       // 当 path 里的值被修改后，此处被执行，本地变量holder 得到回调函数返回的值 data
       @Override
       public void handleDataChange(String dataPath,Object data) throws Exception{
+        log.error("监听到数据变动："+data);
         holder.set((String) data);
       }
 
@@ -89,8 +90,10 @@ public class ZkClientTest{
         holder.set(null);
       }
     };
+    log.error("向节增加监听");
     zkClient.subscribeDataChanges(path,listener);
-    zkClient.writeData(path,"second"); // 修改 path 节点里的值
+    log.error("向节点写入数据："+"new data");
+    zkClient.writeData(path,"new data"); // 修改 path 节点里的值
 
     // 启动一个线程 4 秒后获取最新的值，为什么要等待 4 秒？ 防止事件还没有被触发
     String contentFromHolder =waitUntil(new Callable<String>(){
@@ -100,7 +103,7 @@ public class ZkClientTest{
       }
     },TimeUnit.SECONDS,2);
 
-    assertEquals("second",contentFromHolder);
+    assertEquals("new data",contentFromHolder);
   }
 
   public static <T> T waitUntil(Callable<T> callable, TimeUnit timeUnit, long timeout) throws Exception {
