@@ -62,6 +62,9 @@ public class ZkClientTest{
   public void testUpdateValue() throws Exception{
     String data = "something";
     String path = "/temp";
+    if(!zkClient.exists(path)){
+      zkClient.createPersistent(path,"");
+    }
     zkClient.writeData(path,data);
     String data2 = zkClient.readData(path);
     Assert.assertEquals(data,data2);
