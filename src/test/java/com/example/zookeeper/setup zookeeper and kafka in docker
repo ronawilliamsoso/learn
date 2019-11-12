@@ -25,18 +25,28 @@ services:
     environment:
       KAFKA_ADVERTISED_HOST_NAME: localhost
       KAFKA_ZOOKEEPER_CONNECT: "zoo1:2181"
+      KAFKA_DELETE_TOPIC_ENABLE: "true"
       KAFKA_BROKER_ID: 1
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
-      KAFKA_CREATE_TOPICS: "topic1:1:1,topic2:1:1"  # create two topics
+      KAFKA_CREATE_TOPICS: "topic1:1:1,topic2:1:1"
     depends_on:
       - zoo1
     container_name: kafka
 
+  kafka-manager:
+    image: sheepkiller/kafka-manager:latest
+    ports:
+      - "9000:9000"
+    links:
+      - zoo1
+      - kafka1
+    environment:
+      ZK_HOSTS: zookeeper:2181
+
+
 3. start up the compose where  docker-compose.yml belongs
 docker-compose up -d
 
-4. start kafka-manager
-docker run -itd --name=kafka-manager -p 9000:9000 -e ZK_HOSTS="192.168.0.129:2181" sheepkiller/kafka-manager
 
-5.create a cluster at here, then you will see the two topics created:
+4.create a cluster at here, then you will see the two topics created:
 http://192.168.0.129:9000/
