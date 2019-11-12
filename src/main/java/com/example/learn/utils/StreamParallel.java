@@ -1,4 +1,4 @@
-package com.example.learn;
+package com.example.learn.utils;
 
 import java.util.ArrayList;
 import java.util.Random;
