@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @program: demo
- * @description: 秒杀商品防止超卖
+ * @description: 秒杀商品,这个程序在高并发下不能运行正常
  * @author: Wei.Wang
  * @create: 2019-11-11 16:52
  **/
@@ -26,12 +26,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/product")
 public class ProductController{
 
-public  static final String PRODUCT_STOCK = "product_stock";
-
   @Autowired
   private ProductRepository productRepository;
-
-
 
   @GetMapping(value = "/deductStock/{productId}")
   @ApiOperation(value = "deduct by id")

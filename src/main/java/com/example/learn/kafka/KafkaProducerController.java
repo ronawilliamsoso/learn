@@ -1,5 +1,6 @@
 package com.example.learn.kafka;
 
+import com.example.learn.model.Order;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -27,6 +28,15 @@ public class KafkaProducerController{
 	@GetMapping("/message/send")
 	public boolean send(@RequestParam String message){
 		kafkaTemplate.send("topic1",message);
+		return true;
+	}
+
+	@ApiOperation(value = "send an object to kafka")
+	@GetMapping("/message/sendObj")
+	public boolean sendObj(){
+
+		Order order = Order.builder().productId(1).userId("wang").orderId(111).build();
+		kafkaTemplate.send("topic1",order);
 		return true;
 	}
 }
