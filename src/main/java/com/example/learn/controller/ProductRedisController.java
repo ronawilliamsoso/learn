@@ -11,7 +11,6 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,9 +36,6 @@ public class ProductRedisController{
 
   @Autowired
   RedisUtils redisUtils;
-
-  @Autowired
-  public KafkaTemplate<String,Object> kafkaTemplate;
 
 
   /**

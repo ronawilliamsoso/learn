@@ -15,7 +15,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.I0Itec.zkclient.IZkDataListener;
 import org.I0Itec.zkclient.ZkClient;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -48,9 +47,6 @@ public class ProductZookeeperConcurrentMapRedisController{
 
   @Autowired
   RedisUtils redisUtils;
-
-  @Autowired
-  public KafkaTemplate<String,Object> kafkaTemplate;
 
 
   protected ZkClient zkClient   = new ZkClient("192.168.0.129:2181",4000);

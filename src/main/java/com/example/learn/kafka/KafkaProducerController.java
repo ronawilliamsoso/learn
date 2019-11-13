@@ -3,10 +3,8 @@ package com.example.learn.kafka;
 import com.example.learn.model.Order;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 
@@ -18,25 +16,16 @@ import org.springframework.web.bind.annotation.RestController;
  **/
 
 @RestController
-@RequestMapping("/kafka")
+@RequestMapping("/message")
 public class KafkaProducerController{
 
 	@Autowired
-	public KafkaTemplate<String,Object> kafkaTemplate;
-
-	@ApiOperation(value = "send a message to kafka")
-	@GetMapping("/message/send")
-	public boolean send(@RequestParam String message){
-		kafkaTemplate.send("topic1",message);
-		return true;
-	}
+	private OrderSender sender;
 
 	@ApiOperation(value = "send an object to kafka")
-	@GetMapping("/message/sendObj")
-	public boolean sendObj(){
-
-		Order order = Order.builder().productId(1).userId("wang").orderId(111).build();
-		kafkaTemplate.send("topic1",order);
-		return true;
+	@GetMapping("/send/order")
+	public void sendObj(){
+		Order order = Order.builder().productId(1).userId("wang").build();
+		sender.send(order);
 	}
 }

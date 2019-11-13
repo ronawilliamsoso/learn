@@ -12,7 +12,6 @@ import java.util.concurrent.ConcurrentHashMap;
 import javax.annotation.PostConstruct;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -41,9 +40,6 @@ public class ProductConcurrentMapRedisController{
 
   @Autowired
   RedisUtils redisUtils;
-
-  @Autowired
-  public KafkaTemplate<String,Object> kafkaTemplate;
 
 
   /**
@@ -100,7 +96,6 @@ public class ProductConcurrentMapRedisController{
 
     if(userId.isEmpty()){ throw new Exception("用户 id 为空"); }
     Order order = Order.builder().productId(productId).userId(userId).build();
-    //kafkaTemplate.send("topic2",order);
 
   }
 }
