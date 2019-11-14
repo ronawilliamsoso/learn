@@ -1,0 +1,164 @@
+
+  >jps 找到需要分析的那个 pid
+ 
+  >jstat -gcutil 5000
+ 
+    5000 是每 5 秒监控一次
+ 
+     S0     S1     E      O      M     CCS    YGC     YGCT    FGC    FGCT    CGC    CGCT     GCT
+    0.00 100.00   0.00  94.85  79.18  65.84      1    0.002     0    0.000     2    0.002    0.004
+    0.00 100.00   0.00  94.85  79.18  65.84      1    0.002     0    0.000     2    0.002    0.004
+    0.00 100.00   0.00  94.85  79.18  65.84      1    0.002     0    0.000     2    0.002    0.004
+    0.00 100.00   0.00  94.85  79.18  65.84      1    0.002     0    0.000     2    0.002    0.004
+    0.00 100.00   0.00  94.85  79.18  65.84      1    0.002     0    0.000     2    0.002    0.004
+    0.00 100.00   0.00  94.85  79.18  65.84      1    0.002     0    0.000     2    0.002    0.004
+    0.00 100.00   0.00  94.85  79.18  65.84      1    0.002     0    0.000     2    0.002    0.004
+    0.00 100.00   0.00  94.85  79.18  65.84      1    0.002     0    0.000     2    0.002    0.004
+    0.00 100.00   0.00  94.85  79.18  65.84      1    0.002     0    0.000     2    0.002    0.004
+ 
+  S0: 新生代中Survivor space 0区已使用空间的百分比
+  S1: 新生代中Survivor space 1区已使用空间的百分比
+  E: 新生代已使用空间的百分比
+  O: 老年代已使用空间的百分比
+  YGC: 从应用程序启动到当前，发生Yang GC 的次数
+  YGCT: 从应用程序启动到当前，Yang GC所用的时间【单位秒】
+  FGC: 从应用程序启动到当前，发生Full GC的次数
+  FGCT: 从应用程序启动到当前，Full GC所用的时间
+  GCT: 从应用程序启动到当前，用于垃圾回收的总时间【单位秒】
+ 
+ 
+ 
+ 
+   获取 heap 占用情况
+  > jmap -histo 69970
+ 
+  num    #instances(数量) #bytes（占内存）class name (module)
+  -------------------------------------------------------
+   1:          2039     1843350976  [B (java.base@11.0.2)
+   2:           205         548104  [I (java.base@11.0.2)
+   3:           549          66472  java.lang.Class (java.base@11.0.2)
+   4:          1621          51872  java.util.HashMap$Node (java.base@11.0.2)
+   5:          1952          46848  java.lang.String (java.base@11.0.2)
+   6:           446          43760  [Ljava.lang.Object; (java.base@11.0.2)
+ 
+ 
+    查看程序的JVM扩展参数
+   > jinfo -flags 69970
+ 
+   -XX:CICompilerCount=4 -XX:ConcGCThreads=2 -XX:G1ConcRefinementThreads=8 -XX:G1HeapRegionSize=1048576 -XX:GCDrainStackTargetSize=64
+   -XX:InitialHeapSize=268435456 -XX:MarkStackSize=4194304 -XX:MaxHeapSize=4294967296 -XX:MaxNewSize=2576351232 -XX:MinHeapDeltaBytes=1048576
+   -XX:NonNMethodCodeHeapSize=5835340 -XX:NonProfiledCodeHeapSize=122911450 -XX:ProfiledCodeHeapSize=122911450 -XX:ReservedCodeCacheSize=251658240
+   -XX:+SegmentedCodeCache -XX:+UseCompressedClassPointers -XX:+UseCompressedOops -XX:+UseG1GC
+ 
+ 
+   垃圾回收统计,最常用
+ > jstat -gc 69970
+   S0C    S1C    S0U    S1U      EC       EU        OC         OU       MC     MU    CCSC   CCSU   YGC  YGCT    FGC    FGCT    CGC    CGCT     GCT
+   0.0   1024.0  0.0   1024.0 163840.0   0.0    1897472.0  1799767.5  4864.0 3850.5 512.0  337.1    1    0.002   0     0.000   2      0.001    0.003
+ 
+  S0C：第一个幸存区的大小
+  S1C：第二个幸存区的大小
+  S0U：第一个幸存区的使用大小
+  S1U：第二个幸存区的使用大小
+  EC：伊甸园区的大小
+  EU：伊甸园区的使用大小
+  OC：老年代大小
+  OU：老年代使用大小
+  MC：方法区大小(元空间)
+  MU：方法区使用大小
+  CCSC:压缩类空间大小
+  CCSU:压缩类空间使用大小
+  YGC：年轻代垃圾回收次数
+  YGCT：年轻代垃圾回收消耗时间，单位s
+  FGC：老年代垃圾回收次数
+  FGCT：老年代垃圾回收消耗时间，单位s
+  GCT：垃圾回收消耗总时间，单位s
+ 
+ 
+  新生代垃圾回收统计
+  >jstat -gcnew 69970
+     S0C  S1C      S0U    S1U    TT  MTT  DSS      EC       EU     YGC     YGCT
+     0.0 1024.0    0.0   1024.0  15  15  1536.0  163840.0   0.0      1    0.002
+  S0C：第一个幸存区的大小
+  S1C：第二个幸存区的大小
+  S0U：第一个幸存区的使用大小
+  S1U：第二个幸存区的使用大小
+  TT:对象在新生代存活的次数
+  MTT:对象在新生代存活的最大次数
+  DSS:期望的幸存区大小
+  EC：伊甸园区的大小
+  EU：伊甸园区的使用大小
+  YGC：年轻代垃圾回收次数
+  YGCT：年轻代垃圾回收消耗时间
+ 
+ 
+ 新生代内存统计
+  >jstat -gcnewcapacity 69970
+ 
+  NGCMN      NGCMX       NGC      S0CMX     S0C     S1CMX     S1C       ECMX        EC      YGC   FGC   CGC
+   0.0  4194304.0   164864.0      0.0      0.0 4194304.0   1024.0  4194304.0   163840.0     1     0     2
+ 
+  NGCMN：新生代最小容量
+  NGCMX：新生代最大容量
+  NGC：当前新生代容量
+  S0CMX：最大幸存1区大小
+  S0C：当前幸存1区大小
+  S1CMX：最大幸存2区大小
+  S1C：当前幸存2区大小
+  ECMX：最大伊甸园区大小
+  EC：当前伊甸园区大小
+  YGC：年轻代垃圾回收次数
+  FGC：老年代回收次数
+ 
+ 
+  >jstat -gcold 69970
+  MC       MU      CCSC     CCSU       OC          OU       YGC    FGC    FGCT    CGC    CGCT     GCT
+  4864.0   3850.5    512.0    337.1   1897472.0   1799767.5      1     0    0.000     2    0.001    0.003
+ 
+ 
+  MC：方法区大小
+  MU：方法区使用大小
+  CCSC:压缩类空间大小
+  CCSU:压缩类空间使用大小
+  OC：老年代大小
+  OU：老年代使用大小
+  YGC：年轻代垃圾回收次数
+  FGC：老年代垃圾回收次数
+  FGCT：老年代垃圾回收消耗时间
+  GCT：垃圾回收消耗总时间
+ 
+ 
+  老年代内存统计
+  jstat -gcoldcapacity 69970
+   OGCMN       OGCMX        OGC         OC       YGC   FGC    FGCT    CGC    CGCT     GCT
+   0.0      4194304.0   1897472.0   1897472.0     1     0    0.000     2    0.001    0.003
+ 
+  OGCMN：老年代最小容量
+  OGCMX：老年代最大容量
+  OGC：当前老年代大小
+  OC：老年代大小
+  YGC：年轻代垃圾回收次数
+  FGC：老年代垃圾回收次数
+  FGCT：老年代垃圾回收消耗时间
+  GCT：垃圾回收消耗总时间
+ 
+ 
+  元空间内存统计
+  jstat -gcmetacapacity 69970
+ 
+  MCMN       MCMX        MC       CCSMN      CCSMX       CCSC     YGC   FGC    FGCT    CGC    CGCT     GCT
+    0.0    1056768.0     4864.0        0.0  1048576.0      512.0     1     0    0.000     2    0.001    0.003
+ MCMN:最小元数据容量
+  MCMX：最大元数据容量
+  MC：当前元数据空间大小
+  CCSMN：最小压缩类空间大小
+  CCSMX：最大压缩类空间大小
+  CCSC：当前压缩类空间大小
+  YGC：年轻代垃圾回收次数
+  FGC：老年代垃圾回收次数
+  FGCT：老年代垃圾回收消耗时间
+  GCT：垃圾回收消耗总时间
+ 
+ 
+  用于观察各代的变化情况
+  jstat -gc 70877 2000 10
