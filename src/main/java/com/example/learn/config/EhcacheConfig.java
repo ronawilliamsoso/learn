@@ -17,7 +17,7 @@ import org.springframework.context.annotation.Configuration;
 
 /**
  * @program: demo
- * @description:
+ * @description:  ehcache 适用于单进程，因为同步会有延时，多进程还是用 redis
  * @author: Wei.Wang
  * @create: 2019-11-14 22:19
  **/
@@ -33,9 +33,7 @@ public class EhcacheConfig{
 
     // 配置默认缓存属性
     CacheConfiguration<String, String> cacheConfiguration = CacheConfigurationBuilder.newCacheConfigurationBuilder(
-        // 缓存数据K和V的数值类型
-        // 在ehcache3.3中必须指定缓存键值类型,如果使用中类型与配置的不同,会报类转换异常
-        String.class,String.class,
+        String.class,String.class,  // 缓存数据K和V的数值类型 在ehcache3.3中必须指定缓存键值类型,如果使用中类型与配置的不同,会报类转换异常
         ResourcePoolsBuilder
             .newResourcePoolsBuilder()
             .heap(1000L,EntryUnit.ENTRIES) //设置缓存堆容纳元素个数(JVM内存空间)超出个数后会存到offheap中

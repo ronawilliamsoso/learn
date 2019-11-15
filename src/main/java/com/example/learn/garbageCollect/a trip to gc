@@ -1,0 +1,35 @@
+1.启动工程参数
+
+-XX:+PrintGCDetails   -Xloggc:/Users/wangwei/Documents/workspace/learning/demo/gc.log
+
+根据想用的垃圾收集器不一样，添加不一样的参数
+-XX:+UseParallelGC
+-XX:+UseG1GC
+
+2. 上传 log 文件到 gceasy.io
+
+可得到不一样的性能表现
+
+
+G1
+Throughput  : 98.408%
+Latency:
+Avg Pause GC Time 	30.1 ms
+Max Pause GC Time 	140 ms
+
+
+serial：
+Throughput  : 79.863%
+2 Latency:
+Avg Pause GC Time 	194 ms
+Max Pause GC Time 	1 sec 60 ms
+
+
+Paralle：
+Throughput 94.033%
+2 Latency:
+Avg Pause GC Time 	58.2 ms
+Max Pause GC Time 	360 ms
+
+
+根据报告里的提示，jvm增加不同参数
