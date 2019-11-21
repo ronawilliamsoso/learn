@@ -25,13 +25,13 @@ public class StartGcAnysis implements CommandLineRunner{
   @Order(2)
   public void run(String... args) throws Exception{
     System.out.println("start a gc program using a lot of memory");
-
-    for (int i = 0; i < 600; i++) {
-      String result = restTemplate.getForObject("http://localhost:8080/gc/user", String.class);
-      Thread.sleep(1000);
-    }
-
-    log.error("结束，可以开始分析 log 文件");
+//
+//    for (int i = 0; i < 600; i++) {
+//      String result = restTemplate.getForObject("http://localhost:8080/gc/user", String.class);
+//      Thread.sleep(1000);
+//    }
+//
+//    log.error("结束，可以开始分析 log 文件");
 
   }
 }
