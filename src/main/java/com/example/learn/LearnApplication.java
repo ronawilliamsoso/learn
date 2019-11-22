@@ -7,12 +7,14 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
 @EnableAutoConfiguration
 @EnableConfigurationProperties(value = YmlBeanPerson.class)
+@EnableEurekaServer
 public class LearnApplication{
 
 	public static void main(String[] args) {

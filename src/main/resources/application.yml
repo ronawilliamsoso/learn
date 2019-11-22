@@ -1,4 +1,6 @@
 spring:
+  application:
+    name: eureka-server
   datasource:
     url: jdbc:mysql://localhost:3306/demo?useLegacyDatetimeCode=false&serverTimezone=UTC&allowLoadLocalInfile=true
     username: root
@@ -63,3 +65,15 @@ ymlbean:
   girlfriend:
     name: anna
     age: 27
+eureka:
+  client:
+    fetch-registry: false
+    register-with-eureka: false
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+    instance:
+        hostname: localhost
+server:
+  port: 7001
+
+
