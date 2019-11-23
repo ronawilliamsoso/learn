@@ -9,7 +9,7 @@ import org.springframework.web.client.RestTemplate;
 
 /**
  * @program: demo
- * @description: 程序启动后 启动一个耗费资源的程序
+ * @description: 程序启动后 启动一个耗费资源的程序 参数 -XX:+PrintGCDetails -XX:+UseG1GC -Xloggc:/Users/wangwei/Documents/workspace/learning/demo/g1gc.log
  * @author: Wei.Wang
  * @create: 2019-11-14 21:02
  **/
